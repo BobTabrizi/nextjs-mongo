@@ -2,6 +2,18 @@ import Head from 'next/head'
 import { connectToDatabase } from '../util/mongodb'
 
 export default function Home({ properties}) {
+
+
+const book = async (property) => {
+
+  const data = await fetch(`http://localhost:3000/api/book?property_id=${property._id}&guest=Bob`);
+
+   const res = await data.json();
+console.log(res);
+
+}
+
+
   console.log(properties);
   return (
     <div>
@@ -11,31 +23,31 @@ export default function Home({ properties}) {
 
           </Head>
 
-      <div class = "container mx-auto">
-<div class = "row w-full text-center my-4">
-  <h1 class = "text-4x1 font-bold mb-5">TestingMongoDB</h1>
+      <div className = "container mx-auto">
+<div className = "row w-full text-center my-4">
+  <h1 className = "text-4x1 font-bold mb-5">TestingMongoDB</h1>
   
   </div>
-      <div class = "flex flex-row flex-wrap">
+      <div className = "flex flex-row flex-wrap">
       {properties && properties.map(property => (
-      <div class = "flex-auto w-1/4 rounded overflow-hidden shadow-lg m-2">
-      <img class = "w-full" src = {property.image}></img>
-      <div class = "px-6 py-4">
-        <div class = "font-bold text-x1 mb-2">{property.name} (Up to {property.guests} guests)</div>
+      <div className = "flex-auto w-1/4 rounded overflow-hidden shadow-lg m-2">
+      <img className = "w-full" src = {property.image}></img>
+      <div className = "px-6 py-4">
+        <div className = "font-bold text-x1 mb-2">{property.name} (Up to {property.guests} guests)</div>
           <p>{property.address.street}</p>
-          <p class = "text-gray-700 text-base">
+          <p className = "text-gray-700 text-base">
             {property.summary}
           </p>
           </div>
 
-          <div class = "text-center py-2 my-2 font-bold">
+          <div className = "text-center py-2 my-2 font-bold">
 
-            <span class = "text-green-500">${property.price}</span>/night
+            <span className = "text-green-500">${property.price}</span>/night
        </div>
 
-       <div class = "text-center py-2 my-2">
+       <div className = "text-center py-2 my-2">
 
-         <button class = "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mr-5 rounded">book</button>
+         <button className = "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mr-5 rounded" onClick = {() => book(property)}>book</button>
        </div>
        </div>
       ))}
